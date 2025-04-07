@@ -84,18 +84,20 @@ Configuration Rootless
 
 Création du Socket Rootless : Pour utiliser Podman en mode rootless, on doit s'assurer que le socket est créé dans le répertoire utilisateur approprié. Cela peut nécessiter de configurer le service utilisateur pour Podman. (probalement ici mon PB !!) 
 Vérification : Vérifier si le socket rootless est correctement configuré en exécutant des commandes Podman en tant qu'utilisateur non-root et en vérifiant l'emplacement du socket.
-```podman info | grep -A2 -B2 -i sock
 
-remoteSocket:
+```podman info | grep -A2 -B2 -i sock```
+
+```remoteSocket:
     exists: true
     path: /tmp/storage-run-1000/podman/podman.sock
   rootlessNetworkCmd: pasta
   security:
 ```
-Conclusion
-En mode rootless, Podman devrait utiliser un socket spécifique à l'utilisateur, et non un socket appartenant à root ```podman/podman.sock```. Le fait de ne pas trouver le socket /run/podman/podman.sock appartenant à root indiquerait que Podman n'est pas configuré pour fonctionner en mode rootless pour l'utilisateur ... sauf que selon ```podman info | grep -A2 -B2 -i rootless
 
-    exists: true
+Conclusion
+En mode rootless, Podman devrait utiliser un socket spécifique à l'utilisateur, et non un socket appartenant à root ```podman/podman.sock```. Le fait de ne pas trouver le socket /run/podman/podman.sock appartenant à root indiquerait que Podman n'est pas configuré pour fonctionner en mode rootless pour l'utilisateur ... sauf que selon ```podman info | grep -A2 -B2 -i rootless``` : 
+
+    ```exists: true
     path: /tmp/storage-run-1000/podman/podman.sock
   rootlessNetworkCmd: pasta
   security:
@@ -103,11 +105,9 @@ En mode rootless, Podman devrait utiliser un socket spécifique à l'utilisateur
     capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT
     rootless: true
     seccompEnabled: true
-    seccompProfilePath: /etc/containers/seccomp.json
-```
-le mode rootless à la valeur true ```rootless: true``` !!!!
+    seccompProfilePath: /etc/containers/seccomp.json```
 
-
+Le mode rootless à la valeur true ```rootless: true``` !!!!
 
 ### installPortainerRestartAlwaysLimit_PA.sh
 Le script [installPortainerRestartAlwaysLimit_PA.sh](installPortainerRestartAlwaysLimit_PA.sh) automatise l'installation de Portainer avec Podman en mode rootless sur une distribution Alpine Linux et configure Portainer pour qu'il redémarre automatiquement au démarrage tout en limitant les ressources CPU, mémoire, swap ...  du container Portainer. 
