@@ -14,7 +14,7 @@
 #       Information utile sur Podman en rootless à cette adresse https://blog.while-true-do.io/podman-portainer/
 #       commande '$(podman info)' '$(podman info --log-level=debug)'
 #
-# ATTENTION : Ce scrip ne doit pas être lancé ni en ROOT ni en invoquant sudo ou doas !!! Sinon le conteneur Portainer ne sera pas ni visible ni managé en ROOTLESS.
+# ATTENTION : Ce scrip ne doit pas être lancé ni en ROOT ni en invoquant sudo ou doas !!! Sinon le conteneur Portainer ne sera ni visible ni managé en ROOTLESS.
 #             En mode ROOTLESS les conteneurs, overlays, volume ... sont dans le repertoire '/tmp/storage-run-1000/containers' il a cette arborescence :
 # .
 # ├── networks
